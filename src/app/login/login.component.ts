@@ -14,7 +14,7 @@ export class LoginComponent {
   constructor(private userService: UserService, private router: Router) { }
 
   // Méthode pour gérer la connexion
-  login(): void {
+  /*login(): void {
     const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
     
     this.userService.login(user).subscribe(
@@ -29,6 +29,43 @@ export class LoginComponent {
         alert('Invalid credentials');
       }
     );
-  }
+  }*/
+    /*login(): void {
+      const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
+  
+      this.userService.login(user).subscribe(
+          response => {
+              console.log('Login successful', response);
+              // Stockez le token ou l'information nécessaire
+              localStorage.setItem('jwtToken', response.token); // Assurez-vous que le backend retourne un token
+              this.router.navigate(['/home']); // Redirigez vers la page d'accueil
+          },
+          error => {
+              console.error('Login failed', error);
+              alert('Invalid credentials');
+          }
+      );
+  }*/
+      login(): void {
+        const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
+      
+        this.userService.login(user).subscribe(
+          response => {
+            console.log('Réponse du backend:', response); // Log de la réponse
+            if (response.token) {
+              localStorage.setItem('jwtToken', response.token);
+              console.log("✅ Token stocké:", localStorage.getItem('jwtToken')); // Vérifier le stockage
+              this.router.navigate(['/home']); // Redirection après connexion
+            } else {
+              console.error("❌ Aucun token reçu !");
+            }
+          },
+          error => {
+            console.error('❌ Login failed', error);
+            alert('Invalid credentials');
+          }
+        );
+      }
+      
 
 }

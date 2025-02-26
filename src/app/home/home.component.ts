@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { UserService } from '../ServiceUser/user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -6,5 +8,10 @@ import { Component } from '@angular/core';
   styleUrls: ['./home.component.css']
 })
 export class HomeComponent {
+  constructor(private userService: UserService, private router: Router) {}
+  logout() {
+    this.userService.logout(); // Appelle la méthode de logout
+    this.router.navigate(['/login']); // Redirige vers la page de connexion
+  }
 
 }
