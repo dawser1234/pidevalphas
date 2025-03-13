@@ -103,6 +103,10 @@ import { HttpHeaders } from '@angular/common/http';
 })
 export class UserListComponent implements OnInit  {
   users: User[] = [];
+  searchTerm: string = '';
+  sortKey: 'nomU' | 'emailU' | 'salaireU' |'prenomU' = 'nomU'; // Clé par défaut pour le tri
+  sortOrder: boolean = true; // true pour ascendant, false pour descendant
+
 
   constructor(private userService: UserService, public dialog: MatDialog) { }
 
@@ -119,7 +123,7 @@ export class UserListComponent implements OnInit  {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('Présence ajoutée avec succès');
-        this.loadUsers(); // Rechargez les utilisateurs ou les présences si nécessaire
+        this.loadUsers(); 
       }
     });
   }
@@ -134,7 +138,7 @@ export class UserListComponent implements OnInit  {
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
     this.userService.getUsers().subscribe(
       data => {
-        this.users = data; // Met à jour la liste des utilisateurs
+        this.users = data; 
       },
       error => {
         console.error('Erreur lors de la récupération des utilisateurs', error);
@@ -195,5 +199,42 @@ export class UserListComponent implements OnInit  {
       this.loadUsers(); 
     });
   }
+  // Méthode pour trier
+  sort(property: 'nomU' | 'prenomU' | 'salaireU' |'prenomU' |'emailU'): void {
+    this.sortKey = property;
+    this.sortOrder = !this.sortOrder; // Inverser l'ordre de tri
+  }
+
+  /*filterUsers() {
+    return this.users
+      .filter(user => 
+        user.nomU.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+        user.emailU.toLowerCase().includes(this.searchTerm.toLowerCase())
+      )
+      .sort((a, b) => {
+        const aValue = a[this.sortKey];
+        const bValue = b[this.sortKey];
+
+        if (aValue < bValue) return this.sortOrder ? -1 : 1;
+        if (aValue > bValue) return this.sortOrder ? 1 : -1;
+        return 0;
+      });
+  }*/
+      filterUsers() {
+        return this.users
+          .filter(user => 
+            (user.nomU && user.nomU.toLowerCase().includes(this.searchTerm.toLowerCase())) || 
+            (user.emailU && user.emailU.toLowerCase().includes(this.searchTerm.toLowerCase()))
+          )
+          .sort((a, b) => {
+            const aValue = a[this.sortKey];
+            const bValue = b[this.sortKey];
+      
+            if (aValue < bValue) return this.sortOrder ? -1 : 1;
+            if (aValue > bValue) return this.sortOrder ? 1 : -1;
+            return 0;
+          });
+      }
+      
 }
 

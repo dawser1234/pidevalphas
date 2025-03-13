@@ -33,6 +33,12 @@ import { UserAdminADDComponent } from './user-admin-add/user-admin-add.component
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { UserAdminUpdateComponent } from './user-admin-update/user-admin-update.component';
 import { PresenceModalComponent } from './presence-modal/presence-modal.component';
+import { UserService } from './ServiceUser/user.service';
+import { GoogleCallbackComponent } from './google-callback/google-callback.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
+import { RecaptchaModule } from "ng-recaptcha";
 
 
 
@@ -58,7 +64,11 @@ import { PresenceModalComponent } from './presence-modal/presence-modal.componen
       DashboardUserComponent,
       UserAdminADDComponent,
       UserAdminUpdateComponent,
-      PresenceModalComponent
+      PresenceModalComponent,
+      GoogleCallbackComponent,
+      ForgotPasswordComponent,
+      UserAccountComponent,
+      AuthCallbackComponent
   ],
   imports: [
     BrowserModule,
@@ -73,9 +83,10 @@ import { PresenceModalComponent } from './presence-modal/presence-modal.componen
     MatSelectModule,
     MatButtonModule,
     MatIconModule,
+    RecaptchaModule,
     BrowserAnimationsModule
   ],
-  providers: [],
+  providers: [UserService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

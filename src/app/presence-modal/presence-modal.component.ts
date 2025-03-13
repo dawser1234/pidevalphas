@@ -252,26 +252,26 @@ export class PresenceModalComponent implements OnInit {
     }
   };
 
-  presences: Presence[] = []; // Liste des présences
-  editingPresenceId: number | null = null; // ID de la présence en cours d'édition
+  presences: Presence[] = []; 
+  editingPresenceId: number | null = null; 
 
   constructor(
     public dialogRef: MatDialogRef<PresenceModalComponent>,
     @Inject(MAT_DIALOG_DATA) public data: { userId: number },
     private presenceService: PresenceService
   ) {
-    this.newPresence.user.idU = data.userId; // Récupérer l'ID de l'utilisateur
+    this.newPresence.user.idU = data.userId; 
   }
 
   ngOnInit(): void {
-    this.loadPresences(); // Charger les présences lors de l'initialisation
+    this.loadPresences(); 
   }
 
   loadPresences(): void {
     const userId = this.newPresence.user.idU;
     if (userId !== undefined) {
       this.presenceService.getPresencesByUserId(userId).subscribe((data) => {
-        this.presences = data; // Stocker les présences dans la variable
+        this.presences = data; 
       });
     } else {
       console.error('ID utilisateur est manquant');
@@ -281,8 +281,8 @@ export class PresenceModalComponent implements OnInit {
   addPresence(): void {
     if (this.newPresence.user.idU) {
       this.presenceService.addPresence(this.newPresence.user.idU, this.newPresence).subscribe(() => {
-        this.loadPresences(); // Charger à nouveau les présences après ajout
-        this.resetForm(); // Réinitialiser le formulaire
+        this.loadPresences(); 
+        this.resetForm(); 
       });
     } else {
       console.error('ID utilisateur est manquant');
@@ -303,12 +303,12 @@ export class PresenceModalComponent implements OnInit {
 editPresence(presence: Presence): void {
   this.newPresence = { 
     ...presence,
-    // Conservez dateP comme un objet Date
+    
   };
   this.editingPresenceId = presence.idP !== undefined ? presence.idP : null;
 }
 
-// Méthode pour formater la date pour l'affichage dans le champ
+
 getFormattedDateForInput(date: Date): string {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, '0');
@@ -318,16 +318,16 @@ getFormattedDateForInput(date: Date): string {
   updatePresence(): void {
     if (this.editingPresenceId !== null) {
       this.presenceService.updatePresence(this.editingPresenceId, this.newPresence).subscribe(() => {
-        this.loadPresences(); // Recharger la liste après mise à jour
-        this.resetForm(); // Réinitialiser le formulaire
-        this.editingPresenceId = null; // Réinitialiser l'ID d'édition
+        this.loadPresences(); 
+        this.resetForm(); 
+        this.editingPresenceId = null; 
       });
     }
   }
 
   deletePresence(presenceId: number): void {
     this.presenceService.deletePresence(presenceId).subscribe(() => {
-      this.loadPresences(); // Recharger la liste après suppression
+      this.loadPresences(); 
       console.log('Présence supprimée avec succès');
     }, error => {
       console.error('Erreur lors de la suppression de la présence', error);
@@ -349,10 +349,10 @@ getFormattedDateForInput(date: Date): string {
         role: Role.EMPLOYE
       }
     };
-    this.editingPresenceId = null; // Réinitialiser l'ID d'édition
+    this.editingPresenceId = null; 
   }
 
   onNoClick(): void {
-    this.dialogRef.close(); // Fermer le modal sans action
+    this.dialogRef.close(); 
   }
 }

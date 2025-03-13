@@ -1,16 +1,16 @@
 // src/app/Model/User.model.ts
-import { Presence } from '../Model/Presence.model'; // Assurez-vous que le chemin est correct
+import { Presence } from '../Model/Presence.model'; 
 
 export enum Role {
-    ADMIN = 'ADMIN',
-    USER = 'USER',
-    GUEST = 'GUEST',
-    RESPONSABLELOG = 'RESPONSABLELOG',
-    INSPECTER = 'INSPECTER',
-    RH = 'RH',
-    PROJECTMANAGER = 'PROJECTMANAGER',
-    EMPLOYE = 'EMPLOYE',
-    // Ajoutez d'autres rôles si nécessaire
+    ADMIN = 'ROLE_ADMIN',
+    USER = 'ROLE_USER',
+    GUEST = 'ROLE_GUEST',
+    RESPONSABLELOG = 'ROLE_RESPONSABLELOG',
+    INSPECTER = 'ROLE_INSPECTER',
+    RH = 'ROLE_RH',
+    PROJECTMANAGER = 'ROLE_PROJECTMANAGER',
+    EMPLOYE = 'ROLE_EMPLOYE',
+    
 }
 
 export interface User {
@@ -21,5 +21,5 @@ export interface User {
     motdepasseU: string;
     salaireU: number;
     role?: Role;
-    presences?: Presence[]; // Utilisation de l'énumération pour le rôle
+    presences?: Presence[]; 
 }

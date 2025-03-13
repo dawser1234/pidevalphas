@@ -55,20 +55,20 @@ export class UserAdminADDComponent {
       motdepasseU: form.value.motdepasse,
       nomU: form.value.nom,
       prenomU: form.value.prenom,
-      role: form.value.role as Role, // Récupérer le rôle
-      salaireU: form.value.salaire // Récupérer le salaire
+      role: form.value.role as Role, 
+      salaireU: form.value.salaire 
     };
 
     this.userService.addUser(newUser).subscribe(
       response => {
         console.log('Utilisateur ajouté:', response);
-        alert('Utilisateur ajouté avec succès !'); // Alerte de succès
-        form.reset(); // Réinitialiser le formulaire
-        this.dialogRef.close(); // Ferme le modal ici
+        alert('Utilisateur ajouté avec succès !'); 
+        form.reset(); 
+        this.dialogRef.close(); 
       },
       error => {
         console.error('Erreur lors de l\'ajout de l\'utilisateur', error);
-        alert('Erreur lors de l\'ajout de l\'utilisateur.'); // Alerte d'erreur
+        alert('Erreur lors de l\'ajout de l\'utilisateur.'); 
       }
     );
   }

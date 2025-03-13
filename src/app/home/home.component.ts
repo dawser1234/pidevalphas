@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 export class HomeComponent {
   constructor(private userService: UserService, private router: Router) {}
   logout() {
-    this.userService.logout(); // Appelle la méthode de logout
-    this.router.navigate(['/login']); // Redirige vers la page de connexion
+    this.userService.logout(); 
+    this.router.navigate(['/login']); 
   }
 
 }

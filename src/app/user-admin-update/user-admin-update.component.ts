@@ -56,14 +56,14 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
     styleUrls: ['./user-admin-update.component.css']
 })
 export class UserAdminUpdateComponent {
-    updatedUser: User; // Pour stocker les données de l'utilisateur à mettre à jour
+    updatedUser: User; 
 
     constructor(
         private userService: UserService,
         public dialogRef: MatDialogRef<UserAdminUpdateComponent>,
-        @Inject(MAT_DIALOG_DATA) public data: User // Recevoir les données de l'utilisateur
+        @Inject(MAT_DIALOG_DATA) public data: User // NE5O DONées mta3 user
     ) {
-        // Initialiser updatedUser avec les données reçues
+        
         this.updatedUser = { ...data };
     }
 
@@ -73,7 +73,7 @@ export class UserAdminUpdateComponent {
                 response => {
                     console.log('Utilisateur mis à jour:', response);
                     alert('Utilisateur mis à jour avec succès !');
-                    this.dialogRef.close(); // Fermer le modal
+                    this.dialogRef.close(); 
                 },
                 error => {
                     console.error('Erreur lors de la mise à jour de l\'utilisateur', error);

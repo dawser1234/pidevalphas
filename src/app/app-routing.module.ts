@@ -15,6 +15,10 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { UserListComponent } from './user-list/user-list.component';
 import { DashboardUserComponent } from './dashboard-user/dashboard-user.component';
 import { UserAdminADDComponent } from './user-admin-add/user-admin-add.component';
+import { GoogleCallbackComponent } from './google-callback/google-callback.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
+import { UserAccountComponent } from './user-account/user-account.component';
+import{AuthCallbackComponent} from './auth-callback/auth-callback.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -34,6 +38,10 @@ const routes: Routes = [
    { path: 'dashboard', component: DashboardComponent },
    {path: 'user_admin_add', component: UserAdminADDComponent },
    {path: 'user_admin_update/:id', component: UserAdminADDComponent },
+   { path: 'code/google', component: GoogleCallbackComponent },
+   { path: 'forgot-password', component: ForgotPasswordComponent },
+   { path: 'auth/callback', component: AuthCallbackComponent },
+   {path:'account',component:UserAccountComponent},
    
   
   

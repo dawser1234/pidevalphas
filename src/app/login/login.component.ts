@@ -8,54 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  emailU: string = ''; // Champ pour l'email
-  motdepasseU: string = ''; // Champ pour le mot de passe
+  emailU: string = ''; 
+  motdepasseU: string = ''; 
 
   constructor(private userService: UserService, private router: Router) { }
-
-  // Méthode pour gérer la connexion
-  /*login(): void {
-    const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
-    
-    this.userService.login(user).subscribe(
-      response => {
-        console.log('Login successful', response);
-        // Stockez le token ou l'information nécessaire
-        localStorage.setItem('token', response.token); // Assurez-vous que le backend retourne un token
-        this.router.navigate(['/home']); // Redirigez vers la page d'accueil
-      },
-      error => {
-        console.error('Login failed', error);
-        alert('Invalid credentials');
-      }
-    );
-  }*/
-    /*login(): void {
-      const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
-  
-      this.userService.login(user).subscribe(
-          response => {
-              console.log('Login successful', response);
-              // Stockez le token ou l'information nécessaire
-              localStorage.setItem('jwtToken', response.token); // Assurez-vous que le backend retourne un token
-              this.router.navigate(['/home']); // Redirigez vers la page d'accueil
-          },
-          error => {
-              console.error('Login failed', error);
-              alert('Invalid credentials');
-          }
-      );
-  }*/
       login(): void {
         const user = { emailU: this.emailU, motdepasseU: this.motdepasseU };
       
         this.userService.login(user).subscribe(
           response => {
-            console.log('Réponse du backend:', response); // Log de la réponse
+            console.log('Réponse du backend:', response); 
             if (response.token) {
               localStorage.setItem('jwtToken', response.token);
-              console.log("✅ Token stocké:", localStorage.getItem('jwtToken')); // Vérifier le stockage
-              this.router.navigate(['/home']); // Redirection après connexion
+              console.log("✅ Token stocké:", localStorage.getItem('jwtToken')); 
+              //this.router.navigate(['/home']); 
             } else {
               console.error("❌ Aucun token reçu !");
             }
@@ -65,6 +31,12 @@ export class LoginComponent {
             alert('Invalid credentials');
           }
         );
+      }
+      loginWithGoogle(): void {
+        this.userService.loginWithGoogle(); // Appel du service pour rediriger vers Google
+      }
+      onForgotPassword(): void {
+        this.router.navigate(['/forgot-password']); // Redirige vers la page de réinitialisation
       }
       
 

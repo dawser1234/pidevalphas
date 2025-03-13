@@ -44,6 +44,33 @@
                         </div>
                     </div>
                 </div>
+                   <!-- Section pour les tentatives de connexion en attente -->
+                   <div class="row">
+                    <div class="col-12 grid-margin stretch-card">
+                        <div class="card corona-gradient-card">
+                            <div class="card-body">
+                                <h4 class="mb-3">Tentatives de Connexion en Attente</h4>
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Email</th>
+                                            <th>Actions</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr *ngFor="let attempt of pendingAttempts">
+                                            <td>{{ attempt.email }}</td>
+                                            <td>
+                                                <button mat-button (click)="acceptLogin(attempt.email)">Accepter</button>
+                                                <button mat-button (click)="blockLogin(attempt.email)">Bloquer</button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Ici, vous pouvez ajouter le composant UserListComponent -->
                 <app-user-list></app-user-list>
