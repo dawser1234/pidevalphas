@@ -87,4 +87,11 @@ export class PresenceService {
   getPresencesByUserId(userId: number): Observable<Presence[]> {
     return this.http.get<Presence[]>(`${this.apiUrl}/${userId}/presences`, { headers: this.createHeaders() });
   }
+  getAllPresences(): Observable<Presence[]> {
+    return this.http.get<Presence[]>(`${this.apiUrl}/getAllpresence`, { headers: this.createHeaders() });
+  }
+
+  addPresencewithoutHolidays(userId: number, presence: Presence): Observable<Presence> {
+    return this.http.post<Presence>(`${this.apiUrl}/${userId}/presences/addWithHolidayCheck`, presence, { headers: this.createHeaders() });
+  }
 }

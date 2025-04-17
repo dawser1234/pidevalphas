@@ -39,6 +39,7 @@ import { ForgotPasswordComponent } from './forgot-password/forgot-password.compo
 import { UserAccountComponent } from './user-account/user-account.component';
 import { AuthCallbackComponent } from './auth-callback/auth-callback.component';
 import { RecaptchaModule } from "ng-recaptcha";
+import { PresenceemployModalComponent } from './presenceemploy-modal/presenceemploy-modal.component';
 
 
 
@@ -68,7 +69,8 @@ import { RecaptchaModule } from "ng-recaptcha";
       GoogleCallbackComponent,
       ForgotPasswordComponent,
       UserAccountComponent,
-      AuthCallbackComponent
+      AuthCallbackComponent,
+      PresenceemployModalComponent
   ],
   imports: [
     BrowserModule,

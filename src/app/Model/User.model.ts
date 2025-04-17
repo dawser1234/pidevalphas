@@ -22,4 +22,9 @@ export interface User {
     salaireU: number;
     role?: Role;
     presences?: Presence[]; 
+    etude?: string;
+    passion?: string;
+    experience?: string;
+    competences?: string;
+    
 }

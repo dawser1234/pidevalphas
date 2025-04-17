@@ -58,8 +58,17 @@
                                         <li><a routerLink="/about">About</a></li>
                                         <li><a routerLink="/produit">Projects</a></li>
                                         <li><a routerLink="/service">Services</a></li>
+                                        <li *ngIf="isEmploye">
+
+                                            <button (click)="openPresenceModal()" class="btn btn-primary">
+                                              Enregistrer ma présence
+                                            </button>
+                                            <app-presenceemploy-modal></app-presenceemploy-modal>
+                                          </li>
+                                                       
                                         <li><a routerLink="/RH">RH </a></li>
                                         <li><a routerLink="/finance">Finance</a>
+                                            <li><a routerLink="/account">Profile</a>
                                             <ul class="submenu">
                                                 <li>Blog</li>
                                                 <li>Blog Details</li>
@@ -73,7 +82,8 @@
                                                 <li>Services Details</li>
                                             </ul>
                                         </li>
-                                        <li><a>Connexion</a>
+                                          <!-- Vérification du rôle pour afficher le bouton d'ouverture du modal de présence -->
+                           <li><a>Connexion</a>
                                             <ul class="submenu">
                                                 <li><a routerLink="/login">se connecter</a></li>
                                                 <li><a routerLink="/inscrire">S'inscrire</a></li>

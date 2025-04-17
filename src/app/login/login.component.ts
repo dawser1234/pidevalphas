@@ -38,6 +38,10 @@ export class LoginComponent {
       onForgotPassword(): void {
         this.router.navigate(['/forgot-password']); // Redirige vers la page de réinitialisation
       }
+      logout() {
+        this.userService.logout(); 
+        this.router.navigate(['/login']); 
+      }
       
 
 }

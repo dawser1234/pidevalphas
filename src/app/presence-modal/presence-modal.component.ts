@@ -277,8 +277,32 @@ export class PresenceModalComponent implements OnInit {
       console.error('ID utilisateur est manquant');
     }
   }
-
+  
   addPresence(): void {
+    if (this.newPresence.user.idU) {
+      this.presenceService.addPresencewithoutHolidays(this.newPresence.user.idU, this.newPresence)
+        .subscribe({
+          next: () => {
+            this.loadPresences(); 
+            this.resetForm(); 
+          },
+          error: (error) => {
+            if (error.status === 400 || error.status === 500) {
+              alert("❌ " + error.error); // ici on affiche l'erreur du backend
+            } else {
+              console.error('Erreur inconnue lors de l’ajout de la présence :', error);
+              alert("Une erreur est servenuce c est un jour ferie.");
+            }
+          }
+        });
+    } else {
+      console.error('ID utilisateur est manquant');
+    }
+  }
+  
+  
+
+  /*addPresence(): void {
     if (this.newPresence.user.idU) {
       this.presenceService.addPresence(this.newPresence.user.idU, this.newPresence).subscribe(() => {
         this.loadPresences(); 
@@ -287,7 +311,7 @@ export class PresenceModalComponent implements OnInit {
     } else {
       console.error('ID utilisateur est manquant');
     }
-  }
+  }*/
 
   /*editPresence(presence: Presence): void {
     this.newPresence = { ...presence }; // Charger les détails de la présence à éditer

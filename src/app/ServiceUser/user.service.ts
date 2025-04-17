@@ -79,10 +79,13 @@ export class UserService {
             // Redirection en fonction du rôle
             if (role === 'ROLE_ADMIN') {
               console.log('Redirection vers le tableau de bord admin');
+              
               this.router.navigate(['/dashboard_user']); // Rediriger vers le tableau de bord admin
             } else {
               console.log('Redirection vers la page d\'accueil');
-              this.router.navigate(['/home']); // Rediriger vers la page d'accueil
+              setTimeout(() => {
+              this.router.navigate(['/home']);
+            }, 100); // Rediriger vers la page d'accueil
             }
           }
         })
@@ -111,13 +114,15 @@ export class UserService {
   // user.service.ts
 loginWithGoogle(): void {
   const clientId = '994519531998-tsrffi97f9bt8jmvraeffcjodd09kt6h.apps.googleusercontent.com'; // Remplacez par votre ID client Google
-  const redirectUri = 'http://localhost:8089/code/google'; // URI de redirection
+  const redirectUri = 'http://localhost:8089/login/oauth2/code/google' // URI de redirection
   const scope = 'openid profile email';
 
   const url = `https://accounts.google.com/o/oauth2/auth?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code&scope=${scope}`;
   
   window.location.href = url;
 }
+
+
 // user.service.ts
 exchangeCodeForToken(code: string): Observable<any> {
   return this.http.post<any>(`${this.baseUrl}/code/google`, { code });
@@ -162,4 +167,67 @@ addUserWithCaptcha(user: User, captchaResponse: string): Observable<User> {
       captchaResponse 
   }, { headers: this.createHeaders() });
 }
+getProfileCompletion(userId: number): Observable<any> {
+  // Récupérer le token JWT dans le localStorage
+  const token = localStorage.getItem('jwtToken');
+  
+  // Loguer le token pour vérifier qu'il est bien présent
+  console.log('Token JWT:', token);
+
+  // Si le token est manquant, afficher une erreur dans la console
+  if (!token) {
+    console.error('Token JWT manquant');
+  }
+
+  // Ajouter le token dans les en-têtes s'il est disponible
+  const headers = token ? { 'Authorization': `Bearer ${token}` } : {};
+
+  // Loguer l'URL et les en-têtes avant l'envoi de la requête
+  console.log(`Envoi de la requête GET à : ${this.baseUrl}/profile-completion/${userId}`);
+  console.log('En-tête de la requête :', headers);
+
+  // Retourner la requête GET avec les en-têtes appropriés
+  return this.http.get<any>(`${this.baseUrl}/profile-completion/${userId}`, { headers: this.createHeaders() });
+}
+updateUserProfile(userId: number, user: User): Observable<User> {
+  // Récupérer le token JWT dans le localStorage ou sessionStorage
+  const token = localStorage.getItem('jwtToken');
+  
+  // Vérifier si le token est disponible
+  if (!token) {
+    console.error('Token JWT manquant');
+    // Retourner une erreur si le token est manquant
+  }
+
+  // Loguer l'URL de la requête et l'en-tête avant l'envoi
+  console.log(`Envoi de la requête PUT à : ${this.baseUrl}/update-profile/${userId}`);
+  console.log('En-tête de la requête :', {
+    'Authorization': `Bearer ${token}`
+  });
+
+  // Envoyer la requête HTTP avec le token JWT dans l'en-tête Authorization
+  return this.http.put<User>(`${this.baseUrl}/update-profile/${userId}`, user, {
+    headers: this.createHeaders() // Assurez-vous que la méthode 'createHeaders' ajoute le token
+  });
+}
+getCurrentUserId(): number | null {
+  const token = localStorage.getItem('jwtToken');
+  console.log('Token récupéré:', token);
+
+  if (token) {
+    const decoded: any = jwtDecode(token);
+    console.log('Token décodé:', decoded);
+    return decoded.id;  // Vérifie que 'id' existe dans le token décodé
+  }
+  
+  return null;
+}
+getTokenn(): string | null {
+  return localStorage.getItem('token');
+}
+
+
+
+
+
 }
